@@ -1,0 +1,32 @@
+{
+	"name": "create-wc-dapp",
+	"version": "0.0.1",
+	"keywords": [
+		"create-wc-dapp",
+		"create wc dapp",
+		"boilerplate",
+		"WalletConnect"
+	],
+	"type": "module",
+	"scripts": {
+		"dev": "nodemon ./index.js",
+		"lint": "eslint . --ext .js && yarn prettier --write .",
+		"start": "npx create-wc-dapp"
+	},
+	"bin": {
+		"create-wc-dapp": "./index.js"
+	},
+	"description": "Bootstrap a WalletConnect integrated dapp with with one command",
+	"license": "MIT",
+	"devDependencies": {
+		"nodemon": "^2.0.21"
+	},
+	"dependencies": {
+		"chalk": "^5.2.0",
+		"cli-progress": "^3.12.0",
+		"dotenv": "^16.0.3",
+		"fs-extra": "^11.1.0",
+		"prompts": "^2.4.2",
+		"yargs": "^17.7.1"
+	}
+}
