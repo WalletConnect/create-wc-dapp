@@ -11,7 +11,8 @@
 	"scripts": {
 		"dev": "nodemon ./index.js",
 		"lint": "eslint . --ext .js && yarn prettier --write .",
-		"start": "npx create-wc-dapp"
+		"start": "npx create-wc-dapp",
+		"dev:norestart":"node ./index.js"
 	},
 	"bin": {
 		"create-wc-dapp": "./index.js"
