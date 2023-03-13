@@ -15,10 +15,14 @@ import {
 	READY_TEXT,
 	STEPS,
 	FINAL_PROMPT_TEXT,
-	CREATING_TEXT
+	CREATING_TEXT,
+	HELP_TEXT_GROUP,
+	STEPS_TEXT,
+	DELETING_TEXT,
+	POST_CLEANUP_TEXT,
+	PROGRESS_FORMAT,
 } from "./constants.js";
 import { INTRO, wcText } from "./utils.js";
-
 
 const cleanUpFiles = folder => {
 	// Delete the temporary folder
@@ -27,7 +31,7 @@ const cleanUpFiles = folder => {
 		force: true,
 	});
 
-	console.log(chalk.yellow("Project cleaned up ✅ "));
+	console.log(chalk.yellow(POST_CLEANUP_TEXT));
 };
 
 export const main = async () => {
@@ -36,10 +40,10 @@ export const main = async () => {
 	// Get the project path from the command line if provided, else default to null
 	const cmdLineRes = yargs(process.argv.slice(2)).command(
 		"$0 [folder-name]",
-		`create a new WalletConnect dApp project`,
+		HELP_TEXT_GROUP.title,
 		yargs => {
 			yargs.positional("folder-name", {
-				describe: `Folder to create your WalletConnect dApp in`,
+				describe: HELP_TEXT_GROUP.description,
 				type: "string",
 				default: null,
 			});
@@ -98,34 +102,50 @@ export const main = async () => {
 		if (cmdLineRes.folderName) {
 			createDapp(context.resolvedProjectPath, context.projectName);
 		} else {
-			const finalPrompt = await prompts({
-				type: "confirm",
-				name: "value",
-				message: `${FINAL_PROMPT_TEXT(projectPath)} \n`,
-				initial: true,
-			}).then(data => data.value);
-
-			if (finalPrompt) {
-				createDapp(context.projectName, context.projectName);
-			} else {
-				process.exit(0);
-			}
+			createDapp(context.projectName, context.projectName);
 		}
 	} catch (err) {
 		process.env.ENVIRONMENT === "development" && console.error(err);
 	}
 };
 
+const cloneAndCopy = (
+	resolvedProjectPath,
+	projectPath,
+	progressBar,
+	repo = APP_REPOSITORY_URL
+) => {
+	fse.mkdtemp(path.join(os.tmpdir(), "wc-"), (err, folder) => {
+		if (err) throw err;
+		execSync(`git clone --depth 1 ${repo} ${folder}`, {
+			stdio: "pipe",
+		});
+		fse.copySync(
+			path.join(folder, "dapps/react-dapp-v2"),
+			resolvedProjectPath
+		);
+		fse.writeFileSync(
+			path.join(resolvedProjectPath, ".env"),
+			"SKIP_PREFLIGHT_CHECK=true"
+		);
+		progressBar.stop();
+		console.clear();
+		console.log(chalk.bold(chalk.blue(`\n${READY_TEXT}\n\n`)) + STEPS_TEXT);
+		console.log(STEPS(projectPath));
+		console.log(chalk.gray(DELETING_TEXT));
+		cleanUpFiles(folder);
+	});
+};
+
 export const createDapp = (resolvedProjectPath, projectPath) => {
 	// Create the project folder and copy the template files
-	console.log(
-		chalk.bold(
-			chalk.blue(
-				`\n${CREATING_TEXT}\n`
-			)
-		)
+	console.log(chalk.bold(chalk.blue(`\n${CREATING_TEXT}\n`)));
+	const progressBar = new _progress.SingleBar(
+		{
+			format: PROGRESS_FORMAT,
+		},
+		_progress.Presets.shades_classic
 	);
-	const progressBar = new _progress.Bar({}, _progress.Presets.shades_classic);
 	progressBar.start(100, 0);
 	let value = 0;
 
@@ -134,26 +154,7 @@ export const createDapp = (resolvedProjectPath, projectPath) => {
 		progressBar.update(value);
 		if (value >= progressBar.getTotal()) {
 			clearInterval(timer);
-			fse.mkdtemp(path.join(os.tmpdir(), "wc-"), (err, folder) => {
-				if (err) throw err;
-				execSync(
-					`git clone --depth 1 ${APP_REPOSITORY_URL} ${folder}`,
-					{ stdio: "pipe" }
-				);
-				fse.copySync(path.join(folder, "dapps/react-dapp-v2"), resolvedProjectPath);
-				fse.writeFileSync(
-					path.join(resolvedProjectPath, ".env"),
-					"SKIP_PREFLIGHT_CHECK=true"
-				);
-				progressBar.stop();
-				console.log(
-					chalk.bold(chalk.blue(`\n${READY_TEXT}\n\n`)),
-					"To start your dapp, run the following commands:\n",
-				);
-				console.log(STEPS(projectPath));
-				console.log(chalk.gray("Deleting temporary files 🧹"));
-				cleanUpFiles(folder);
-			});
+			cloneAndCopy(resolvedProjectPath, projectPath, progressBar);
 		}
 	}, 10);
 };

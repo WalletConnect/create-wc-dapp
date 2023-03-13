@@ -12,7 +12,7 @@
 		"dev": "nodemon ./index.js",
 		"lint": "eslint . --ext .js && yarn prettier --write .",
 		"start": "npx create-wc-dapp",
-		"dev:norestart":"node ./index.js"
+		"dev:norestart": "node ./index.js && rm -rf my-wc-dapp/"
 	},
 	"bin": {
 		"create-wc-dapp": "./index.js"

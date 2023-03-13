@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { APP_NAME } from "./constants.js";
+import { APP_NAME, WELCOME_TEXT } from "./constants.js";
 
 export const wcText = chalk.blue.bold;
 
@@ -23,7 +23,5 @@ export const INTRO = () => {
 	);
 
 	console.log("\n");
-	console.log(
-		`📲 Welcome to ${wcText(`${APP_NAME}`)} wizard 📲`
-	);
+	console.log(WELCOME_TEXT);
 };
