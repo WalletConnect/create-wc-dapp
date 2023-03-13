@@ -21,8 +21,32 @@ import {
 	DELETING_TEXT,
 	POST_CLEANUP_TEXT,
 	PROGRESS_FORMAT,
+	WELCOME_TEXT,
 } from "./constants.js";
-import { INTRO, wcText } from "./utils.js";
+import { identifyPackageManager, log, wcText } from "./utils.js";
+
+const INTRO = () => {
+	// Print the WalletConnect logo and welcome message
+	log(
+		chalk.blue(`
+
+              /////////////////                     
+          /////////////////////////                 
+        /////////           /////////               
+         .///                   ///                 
+  */                  /                  /*         
+//////.            ///////             //////       
+ ////////        ///////////        ////////        
+   ////////.  /////////////////   ////////          
+      //////////////     //////////////             
+        /////////,         ./////////               
+           ////               ////                  
+`)
+	);
+
+	log("\n");
+	log(WELCOME_TEXT);
+};
 
 const cleanUpFiles = folder => {
 	// Delete the temporary folder
@@ -31,7 +55,7 @@ const cleanUpFiles = folder => {
 		force: true,
 	});
 
-	console.log(chalk.yellow(POST_CLEANUP_TEXT));
+	log(chalk.yellow(POST_CLEANUP_TEXT));
 };
 
 export const main = async () => {
@@ -64,7 +88,7 @@ export const main = async () => {
 		}
 
 		while (!projectPath) {
-			console.log("\n");
+			log("\n");
 			projectPath = await prompts({
 				type: "text",
 				name: "projectPath",
@@ -130,16 +154,16 @@ const cloneAndCopy = (
 		);
 		progressBar.stop();
 		console.clear();
-		console.log(chalk.bold(chalk.blue(`\n${READY_TEXT}\n\n`)) + STEPS_TEXT);
-		console.log(STEPS(projectPath));
-		console.log(chalk.gray(DELETING_TEXT));
+		log(chalk.bold(chalk.blue(`\n${READY_TEXT}\n\n`)) + STEPS_TEXT);
+		log(STEPS(projectPath, identifyPackageManager()));
+		log(chalk.gray(DELETING_TEXT));
 		cleanUpFiles(folder);
 	});
 };
 
 export const createDapp = (resolvedProjectPath, projectPath) => {
 	// Create the project folder and copy the template files
-	console.log(chalk.bold(chalk.blue(`\n${CREATING_TEXT}\n`)));
+	log(chalk.bold(chalk.blue(`\n${CREATING_TEXT}\n`)));
 	const progressBar = new _progress.SingleBar(
 		{
 			format: PROGRESS_FORMAT,
@@ -147,6 +171,7 @@ export const createDapp = (resolvedProjectPath, projectPath) => {
 		_progress.Presets.shades_classic
 	);
 	progressBar.start(100, 0);
+
 	let value = 0;
 
 	const timer = setInterval(function () {

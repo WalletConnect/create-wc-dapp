@@ -7,20 +7,6 @@ export const PROJECT_NAME_QUESTION = `What is your project name?`;
 export const DIR_VALIDATION_ERROR = `A directory with this name already exists, please use a different name`;
 export const READY_TEXT = "🎉 Your WalletConnect Dapp is ready";
 export const CREATING_TEXT = "🚀 Creating your WalletConnect Dapp";
-export const STEPS = projectPath => `
-	${chalk.bold(chalk.green("cd ") + chalk.magenta(projectPath))}
-	${chalk.bold.green("yarn")}
-	${chalk.bold(
-		`${chalk.green("cp")} ${chalk.magenta(
-			".env.local.example"
-		)} ${chalk.cyan(".env.local")}\n`
-	)}
-	${chalk.gray(`Your .env.local now contains the following environment variables:
-\t- NEXT_PUBLIC_PROJECT_ID (placeholder) - You can generate your own ProjectId at https://cloud.walletconnect.com
-\t- NEXT_PUBLIC_RELAY_URL (already set)
-`)}
-	${chalk.bold.green("yarn dev")}
-`;
 export const FINAL_PROMPT_TEXT = projectPath =>
 	`Are you sure you want to create your ${wcText(
 		`WalletConnect`
@@ -37,3 +23,60 @@ export const PROGRESS_FORMAT =
 	"🛠️  Setting up " +
 	chalk.blue("{bar}") +
 	" {percentage}% • ETA: {eta_formatted}";
+
+const STEPS_YARN = projectPath => `
+	${chalk.bold(chalk.green("cd ") + chalk.magenta(projectPath))}
+	${chalk.bold.green("yarn")}
+	${chalk.bold(
+		`${chalk.green("cp")} ${chalk.magenta(
+			".env.local.example"
+		)} ${chalk.cyan(".env.local")}\n`
+	)}
+	${chalk.gray(`Your .env.local now contains the following environment variables:
+\t- NEXT_PUBLIC_PROJECT_ID (placeholder) - You can generate your own ProjectId at https://cloud.walletconnect.com
+\t- NEXT_PUBLIC_RELAY_URL (already set)
+`)}
+	${chalk.bold.green("yarn dev")}
+`;
+const STEPS_NPM = projectPath => `
+	${chalk.bold(chalk.green("cd ") + chalk.magenta(projectPath))}
+	${chalk.bold.green("npm install")}
+	${chalk.bold(
+		`${chalk.green("cp")} ${chalk.magenta(
+			".env.local.example"
+		)} ${chalk.cyan(".env.local")}\n`
+	)}
+	${chalk.gray(`Your .env.local now contains the following environment variables:
+\t- NEXT_PUBLIC_PROJECT_ID (placeholder) - You can generate your own ProjectId at https://cloud.walletconnect.com
+\t- NEXT_PUBLIC_RELAY_URL (already set)
+`)}
+	${chalk.bold.green("npm run dev")}
+`;
+const STEPS_PNPM = projectPath => `
+	${chalk.bold(chalk.green("cd ") + chalk.magenta(projectPath))}
+	${chalk.bold.green("pnpm install")}
+	${chalk.bold(
+		`${chalk.green("cp")} ${chalk.magenta(
+			".env.local.example"
+		)} ${chalk.cyan(".env.local")}\n`
+	)}
+	${chalk.gray(`Your .env.local now contains the following environment variables:
+\t- NEXT_PUBLIC_PROJECT_ID (placeholder) - You can generate your own ProjectId at https://cloud.walletconnect.com
+\t- NEXT_PUBLIC_RELAY_URL (already set)
+`)}
+	${chalk.bold.green("pnpm run dev")}
+`;
+export const STEPS = (projectPath, packageManager = "yarn") => {
+	switch (packageManager) {
+		case "yarn":
+			return STEPS_YARN(projectPath);
+		case "npm":
+			return STEPS_NPM(projectPath);
+		case "npx":
+			return STEPS_NPM(projectPath);
+		case "pnpm":
+			return STEPS_PNPM(projectPath);
+		default:
+			return STEPS_YARN(projectPath);
+	}
+};
