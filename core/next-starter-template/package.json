@@ -1,0 +1,26 @@
+{
+  "name": "next-starter-template",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@types/node": "18.15.11",
+    "@types/react": "18.0.31",
+    "@types/react-dom": "18.0.11",
+    "@web3modal/ethereum": "^2.2.2",
+    "@web3modal/react": "^2.2.2",
+    "eslint": "8.37.0",
+    "eslint-config-next": "13.2.4",
+    "ethers": "^5",
+    "next": "13.2.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "5.0.3",
+    "wagmi": "^0.12.8"
+  }
+}

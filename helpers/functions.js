@@ -145,7 +145,7 @@ const cloneAndCopy = (
 			stdio: "pipe",
 		});
 		fse.copySync(
-			path.join(folder, "dapps/react-dapp-v2"),
+			path.join(folder, "core/next-starter-template"),
 			resolvedProjectPath
 		);
 		fse.writeFileSync(
