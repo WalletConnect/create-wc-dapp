@@ -12,7 +12,8 @@
 		"dev": "nodemon ./index.js",
 		"lint": "eslint . --ext .js && yarn prettier --write .",
 		"start": "npx create-wc-dapp",
-		"dev:norestart": "node ./index.js && rm -rf my-wc-dapp/"
+		"dev:norestart": "node ./index.js && rm -rf my-wc-dapp/",
+		"dev:nst": "cd core/next-starter-template && yarn dev"
 	},
 	"bin": {
 		"create-wc-dapp": "./index.js"
@@ -20,7 +21,14 @@
 	"description": "Bootstrap a WalletConnect integrated dapp with with one command",
 	"license": "MIT",
 	"devDependencies": {
-		"nodemon": "^2.0.21"
+		"eslint": "^8.0.1",
+		"eslint-config-prettier": "^8.8.0",
+		"eslint-config-standard": "^17.0.0",
+		"eslint-plugin-import": "^2.25.2",
+		"eslint-plugin-n": "^15.0.0",
+		"eslint-plugin-promise": "^6.0.0",
+		"nodemon": "^2.0.21",
+		"prettier": "^2.8.7"
 	},
 	"dependencies": {
 		"chalk": "^5.2.0",

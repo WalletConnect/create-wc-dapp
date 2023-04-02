@@ -22,6 +22,8 @@ import {
 	POST_CLEANUP_TEXT,
 	PROGRESS_FORMAT,
 	WELCOME_TEXT,
+	TEMPLATES_GROUP,
+	TEMPLATE_QUESTION,
 } from "./constants.js";
 import { identifyPackageManager, log, wcText } from "./utils.js";
 
@@ -73,29 +75,55 @@ export const main = async () => {
 			});
 		}
 	).argv;
+
+	// Get the template from the command line if provided with -t or --template, else default to null
+	const selectedTemplate = yargs(process.argv.slice(2)).option("template", {
+		alias: "t",
+		describe: TEMPLATES_GROUP.description,
+		choices: TEMPLATES_GROUP.options.map(option => option.title),
+	}).argv;
+
+	// Override the prompts with the command line arguments
+	prompts.override(
+		cmdLineRes.folderName
+			? { ...cmdLineRes, ...selectedTemplate }
+			: selectedTemplate
+	);
+
 	try {
 		INTRO();
 
-		// If the project path is not provided, ask the user for it
+		// If the project path & is not provided, ask the user for it
 		let projectPath = "";
+		let selectedTemplate = "";
 		let context = {};
-
-		projectPath = cmdLineRes.folderName || "";
 
 		// Checks if project name is provided
 		if (typeof projectPath === "string") {
 			projectPath = projectPath.trim();
 		}
 
-		while (!projectPath) {
-			log("\n");
-			projectPath = await prompts({
-				type: "text",
-				name: "projectPath",
+		const response = await prompts([
+			{
+				type: cmdLineRes.folderName === null ? "text" : null,
+				name: "folderName",
 				message: `${PROJECT_NAME_QUESTION} \n`,
 				initial: `my${APP_NAME.replace("create", "")}`,
-			}).then(data => data.projectPath);
-		}
+				validate: value => value.trim().length > 0,
+			},
+			{
+				type: "select",
+				name: "template",
+				message: `${TEMPLATE_QUESTION} \n`,
+				choices: TEMPLATES_GROUP.options,
+				initial: 0,
+			},
+		]);
+
+		projectPath = response.folderName || cmdLineRes.folderName;
+		selectedTemplate = response.template;
+
+		context.selectedTemplate = selectedTemplate;
 
 		//Reformat project's name
 		projectPath = projectPath.trim().replace(/[\W_]+/g, "-");
@@ -124,9 +152,17 @@ export const main = async () => {
 		context.projectName = path.basename(context.resolvedProjectPath);
 
 		if (cmdLineRes.folderName) {
-			createDapp(context.resolvedProjectPath, context.projectName);
+			createDapp(
+				context.resolvedProjectPath,
+				context.projectName,
+				context.selectedTemplate
+			);
 		} else {
-			createDapp(context.projectName, context.projectName);
+			createDapp(
+				context.projectName,
+				context.projectName,
+				context.selectedTemplate
+			);
 		}
 	} catch (err) {
 		process.env.ENVIRONMENT === "development" && console.error(err);
@@ -137,6 +173,7 @@ const cloneAndCopy = (
 	resolvedProjectPath,
 	projectPath,
 	progressBar,
+	selectedTemplate,
 	repo = APP_REPOSITORY_URL
 ) => {
 	fse.mkdtemp(path.join(os.tmpdir(), "wc-"), (err, folder) => {
@@ -145,7 +182,7 @@ const cloneAndCopy = (
 			stdio: "pipe",
 		});
 		fse.copySync(
-			path.join(folder, "core/next-starter-template"),
+			path.join(folder, `core/${selectedTemplate}`),
 			resolvedProjectPath
 		);
 		fse.writeFileSync(
@@ -161,7 +198,11 @@ const cloneAndCopy = (
 	});
 };
 
-export const createDapp = (resolvedProjectPath, projectPath) => {
+export const createDapp = (
+	resolvedProjectPath,
+	projectPath,
+	selectedTemplate
+) => {
 	// Create the project folder and copy the template files
 	log(chalk.bold(chalk.blue(`\n${CREATING_TEXT}\n`)));
 	const progressBar = new _progress.SingleBar(
@@ -179,7 +220,12 @@ export const createDapp = (resolvedProjectPath, projectPath) => {
 		progressBar.update(value);
 		if (value >= progressBar.getTotal()) {
 			clearInterval(timer);
-			cloneAndCopy(resolvedProjectPath, projectPath, progressBar);
+			cloneAndCopy(
+				resolvedProjectPath,
+				projectPath,
+				progressBar,
+				selectedTemplate
+			);
 		}
 	}, 10);
 };
