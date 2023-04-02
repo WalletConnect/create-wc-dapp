@@ -80,7 +80,7 @@ export const main = async () => {
 	const selectedTemplate = yargs(process.argv.slice(2)).option("template", {
 		alias: "t",
 		describe: TEMPLATES_GROUP.description,
-		choices: TEMPLATES_GROUP.options.map(option => option.title),
+		choices: TEMPLATES_GROUP.options.map(option => option.value),
 	}).argv;
 
 	// Override the prompts with the command line arguments
