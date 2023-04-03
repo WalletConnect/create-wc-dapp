@@ -1,7 +1,7 @@
 import { blue, bold, gray, green, magenta } from "picocolors";
-import { getValue } from "@/contexts";
-import { wcText } from "@/functions/wcText";
 import APP_CONSTANTS from "./app";
+import { getValue } from "../contexts";
+import { wcText } from "../functions/wcText";
 
 export type PackageManagerProps = "yarn" | "npm" | "pnpm";
 

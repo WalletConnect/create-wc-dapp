@@ -5,6 +5,10 @@ import { execSync, spawn } from "node:child_process";
 import os from "node:os";
 import path from "node:path";
 import process from "process";
+import cleanUp from "./cleanUp";
+import { identifyPackageManager } from "./indentifyPackageManager";
+import { log } from "./log";
+import { wcText } from "./wcText";
 import {
 	DELETING_TEXT,
 	PackageManagerProps,
@@ -12,12 +16,8 @@ import {
 	STEPS,
 	STEPS_FOR_PACKAGE_MANAGER,
 	STEPS_TEXT,
-} from "@/constants/steps";
-import { getProgressBar, getValue, setValue } from "@/contexts";
-import cleanUp from "./cleanUp";
-import { identifyPackageManager } from "./indentifyPackageManager";
-import { log } from "./log";
-import { wcText } from "./wcText";
+} from "../constants/steps";
+import { getProgressBar, getValue, setValue } from "../contexts";
 
 const postInstall = (folder: string) => {
 	const packageManager = getValue("packageManager") as PackageManagerProps;

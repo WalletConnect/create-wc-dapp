@@ -1,6 +1,6 @@
 import { blue } from "picocolors";
-import { WELCOME_TEXT } from "@/constants/steps";
 import { log } from "./log";
+import { WELCOME_TEXT } from "../constants/steps";
 
 const introduction = () => {
 	// Print the WalletConnect logo and welcome message

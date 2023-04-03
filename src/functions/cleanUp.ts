@@ -1,8 +1,8 @@
 import fse from "fs-extra";
 import { yellow } from "picocolors";
 import path from "node:path";
-import { POST_CLEANUP_TEXT } from "@/constants/steps";
 import { log } from "./log";
+import { POST_CLEANUP_TEXT } from "../constants/steps";
 
 const cleanUp = (folder: string) => {
 	// Delete the temporary folder

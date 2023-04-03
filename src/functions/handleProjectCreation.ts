@@ -1,10 +1,10 @@
 import fse from "fs-extra";
 import prompts from "prompts";
 import path from "node:path";
-import { DIR_VALIDATION_ERROR } from "@/constants/steps";
-import { getValue, setValue } from "@/contexts";
 import createDapp from "./createDapp";
 import mapTemplateToRepository from "./mapTemplateToRepository";
+import { DIR_VALIDATION_ERROR } from "../constants/steps";
+import { getValue, setValue } from "../contexts";
 
 const handleProjectCreation = async () => {
 	const folder = getValue("folder") as string;

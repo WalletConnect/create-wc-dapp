@@ -1,9 +1,9 @@
 import _progress from "cli-progress";
-import { CREATING_TEXT, PROGRESS_FORMAT } from "@/constants/steps";
-import { setProgressBar } from "@/contexts";
 import cloneAndCopy from "./cloneAndCopy";
 import { log } from "./log";
 import { wcText } from "./wcText";
+import { CREATING_TEXT, PROGRESS_FORMAT } from "../constants/steps";
+import { setProgressBar } from "../contexts";
 
 const createDapp = async () => {
 	// Create the project folder and copy the template files

@@ -1,6 +1,6 @@
 import path from "node:path";
 import process from "process";
-import { PackageManagerProps } from "@/constants/steps";
+import { PackageManagerProps } from "../constants/steps";
 
 export const identifyPackageManager = (): PackageManagerProps => {
 	const execPath = process.env.npm_execpath as string;

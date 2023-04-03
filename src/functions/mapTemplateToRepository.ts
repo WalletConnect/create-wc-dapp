@@ -1,5 +1,5 @@
-import APP_CONSTANTS from "@/constants/app";
-import { getValue, setValue } from "@/contexts";
+import APP_CONSTANTS from "../constants/app";
+import { getValue, setValue } from "../contexts";
 
 interface TemplateMapProps {
 	[key: string]: string;

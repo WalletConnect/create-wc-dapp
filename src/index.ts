@@ -1,14 +1,16 @@
+#!/usr/bin/env node
+
 import { Command, Option } from "commander";
 import prompts from "prompts";
-import APP_CONSTANTS from "@/constants/app";
+import APP_CONSTANTS from "./constants/app";
 import {
 	FOLDER as FOLDER_CONSTANTS,
 	INSTALL as INSTALL_CONSTANTS,
 	TEMPLATE as TEMPLATE_CONSTANTS,
-} from "@/constants/cli";
-import { getAllValues, setValue } from "@/contexts";
-import introduction from "@/functions/introduction";
+} from "./constants/cli";
+import { getAllValues, setValue } from "./contexts";
 import handleProjectCreation from "./functions/handleProjectCreation";
+import introduction from "./functions/introduction";
 
 export const argParse = () => {
 	// Initialize the command system
