@@ -12,6 +12,13 @@ interface CommandProps {
 	options?: OptionProps[];
 }
 
+export const INSTALL: CommandProps = {
+	name: "install",
+	cmd: "--install",
+	alias: "-y",
+	description: "Install dependencies after creating the project",
+};
+
 export const TEMPLATE: CommandProps = {
 	name: "template",
 	cmd: "--template",

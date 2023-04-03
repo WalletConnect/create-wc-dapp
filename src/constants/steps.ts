@@ -1,6 +1,9 @@
 import { blue, bold, gray, green, magenta } from "picocolors";
+import { getValue } from "@/contexts";
 import { wcText } from "@/functions/wcText";
 import APP_CONSTANTS from "./app";
+
+export type PackageManagerProps = "yarn" | "npm" | "pnpm";
 
 interface StepsProps {
 	(projectPath: string, packageManagerSteps: string[]): string;
@@ -9,32 +12,36 @@ interface StepsProps {
 const STEPS_BUILDER: StepsProps = (
 	projectPath: string,
 	packageManagerSteps: string[]
-) => `
-	${bold(green("cd ") + magenta(projectPath))}
-	${bold(green(packageManagerSteps[0]))}
+) => {
+	const installDependencies = getValue("installDependencies") as boolean;
+	return `
+	${bold(green("cd ") + magenta(projectPath))}${
+		installDependencies ? `` : `\n\t${bold(green(packageManagerSteps[0]))}`
+	}
 	${bold(green(packageManagerSteps[1]))}
 	${gray(`\n\tYour .env file contains the following environment variables:
 \t    - NEXT_PUBLIC_PROJECT_ID (placeholder) - You can generate your own ProjectId at https://cloud.walletconnect.com
 `)}`;
+};
 
-const YARN_STEPS = ["yarn", "yarn dev"];
-
-const NPM_STEPS = ["npm install", "npm run dev"];
-
-const PNPM_STEPS = ["pnpm install", "pnpm run dev"];
+export const STEPS_FOR_PACKAGE_MANAGER = {
+	yarn: ["yarn", "yarn dev"],
+	npm: ["npm install", "npm run dev"],
+	pnpm: ["pnpm install", "pnpm run dev"],
+};
 
 export const STEPS = (projectPath: string, packageManager = "yarn") => {
 	switch (packageManager) {
 		case "yarn":
-			return STEPS_BUILDER(projectPath, YARN_STEPS);
+			return STEPS_BUILDER(projectPath, STEPS_FOR_PACKAGE_MANAGER.yarn);
 		case "npm":
-			return STEPS_BUILDER(projectPath, NPM_STEPS);
+			return STEPS_BUILDER(projectPath, STEPS_FOR_PACKAGE_MANAGER.npm);
 		case "npx":
-			return STEPS_BUILDER(projectPath, NPM_STEPS);
+			return STEPS_BUILDER(projectPath, STEPS_FOR_PACKAGE_MANAGER.npm);
 		case "pnpm":
-			return STEPS_BUILDER(projectPath, PNPM_STEPS);
+			return STEPS_BUILDER(projectPath, STEPS_FOR_PACKAGE_MANAGER.pnpm);
 		default:
-			return STEPS_BUILDER(projectPath, YARN_STEPS);
+			return STEPS_BUILDER(projectPath, STEPS_FOR_PACKAGE_MANAGER.yarn);
 	}
 };
 

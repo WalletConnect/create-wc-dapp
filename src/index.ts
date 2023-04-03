@@ -3,6 +3,7 @@ import prompts from "prompts";
 import APP_CONSTANTS from "@/constants/app";
 import {
 	FOLDER as FOLDER_CONSTANTS,
+	INSTALL as INSTALL_CONSTANTS,
 	TEMPLATE as TEMPLATE_CONSTANTS,
 } from "@/constants/cli";
 import { getAllValues, setValue } from "@/contexts";
@@ -19,6 +20,14 @@ export const argParse = () => {
 		.description(APP_CONSTANTS.description)
 		.version(APP_CONSTANTS.version);
 
+	// Add option to install dependencies
+	program.addOption(
+		new Option(
+			`${INSTALL_CONSTANTS.alias}, ${INSTALL_CONSTANTS.cmd}`,
+			INSTALL_CONSTANTS.description
+		)
+	);
+
 	// Add the template option
 	program.addOption(
 		new Option(
@@ -32,6 +41,7 @@ export const argParse = () => {
 
 	// Store the parsed options and arguments
 	setValue("template", program.opts().template);
+	setValue("installDependencies", program.opts().install);
 	setValue("folder", program.args[0] || null);
 };
 
@@ -66,7 +76,7 @@ export const cliPrompt = async () => {
 
 // Run the CLI if this is the main module
 if (require.main === module) {
-	introduction();
 	argParse();
+	introduction();
 	cliPrompt();
 }

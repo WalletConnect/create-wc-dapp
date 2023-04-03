@@ -1,2 +1,4 @@
 dist/
 core/
+node_modules/
+my-wc-dapp*/

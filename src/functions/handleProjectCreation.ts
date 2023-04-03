@@ -24,6 +24,8 @@ const handleProjectCreation = async () => {
 			validate: value => value?.trim().length > 0,
 		});
 
+		setValue("folder", response.folder);
+
 		const tempPath = response.folder.trim().replace(/[\W_]+/g, "-");
 
 		setValue("projectPath", path.resolve(tempPath));
@@ -33,6 +35,15 @@ const handleProjectCreation = async () => {
 		i += 1;
 	}
 	setValue("baseName", path.basename(getValue("projectPath") as string));
+
+	const response = await prompts({
+		type: "confirm",
+		name: "installDependencies",
+		message: `Would you like to install the dependencies?`,
+		initial: false,
+	});
+
+	setValue("installDependencies", response.installDependencies);
 
 	await mapTemplateToRepository();
 

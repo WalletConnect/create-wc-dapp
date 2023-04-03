@@ -1,23 +1,31 @@
 import { SingleBar } from "cli-progress";
 
-type ContextProps = {
-	template: string | null;
-	folder: string | null;
-	repository: string | null;
-	projectPath: string | null;
-	baseName: string | null;
-};
+type ContextProps = Record<
+	| "template"
+	| "folder"
+	| "repository"
+	| "projectPath"
+	| "baseName"
+	| "packageManager",
+	string | null
+>;
+
+type InstallDependenciesProps = Record<"installDependencies", boolean | null>;
 
 type ProgressBarProps = {
 	progress: SingleBar | null;
 };
 
-const context: ContextProps = {
+type CombinedProps = ContextProps & InstallDependenciesProps;
+
+const context: CombinedProps = {
 	template: null,
 	folder: null,
 	repository: null,
 	projectPath: null,
 	baseName: null,
+	packageManager: null,
+	installDependencies: false,
 };
 
 const progressContext: ProgressBarProps = {
@@ -33,14 +41,15 @@ export const getProgressBar = () => {
 	return progressContext.progress;
 };
 
-export const setValue = (
-	key: keyof ContextProps,
-	value: ContextProps[keyof ContextProps]
+export const setValue = <K extends keyof CombinedProps>(
+	key: K,
+	value: CombinedProps[K]
 ) => {
 	context[key] = value;
+	return context[key];
 };
 
-export const getValue = (key: keyof ContextProps) => {
+export const getValue = (key: keyof CombinedProps) => {
 	return context[key];
 };
 
