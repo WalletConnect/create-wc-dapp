@@ -1,0 +1,50 @@
+{
+	"name": "create-wc-dapp",
+	"version": "0.0.1",
+	"description": "Bootstrap a WalletConnect integrated dapp with with one command",
+	"keywords": [
+		"create-wc-dapp",
+		"create wc dapp",
+		"boilerplate",
+		"WalletConnect"
+	],
+	"main": "dist/index.js",
+	"scripts": {
+		"dev": "ts-node src/index.ts",
+		"dev:watch": "nodemon --watch src --exec \"yarn dev\"",
+		"build": "tsc",
+		"lint": "eslint . --fix",
+		"test": "jest"
+	},
+	"bin": {
+		"create-wc-dapp": "./dist/index.js"
+	},
+	"license": "MIT",
+	"devDependencies": {
+		"@jest/globals": "^29.5.0",
+		"@tsconfig/node16": "^1.0.3",
+		"@types/cli-progress": "^3.11.0",
+		"@types/fs-extra": "^11.0.1",
+		"@types/jest": "^29.5.0",
+		"@types/node": "^18.15.11",
+		"@types/prompts": "^2.4.4",
+		"@typescript-eslint/eslint-plugin": "^5.57.0",
+		"@typescript-eslint/parser": "^5.57.0",
+		"cli-progress": "^3.12.0",
+		"commander": "^10.0.0",
+		"eslint": "^8.37.0",
+		"eslint-config-prettier": "^8.8.0",
+		"eslint-import-resolver-typescript": "^3.5.4",
+		"eslint-plugin-import": "^2.27.5",
+		"eslint-plugin-jest": "^27.2.1",
+		"fs-extra": "^11.1.1",
+		"jest": "^29.5.0",
+		"picocolors": "^1.0.0",
+		"prettier": "^2.8.7",
+		"prompts": "^2.4.2",
+		"ts-jest": "^29.1.0",
+		"ts-node": "^10.9.1",
+		"tsconfig-paths": "^4.2.0",
+		"typescript": "^5.0.3"
+	}
+}
