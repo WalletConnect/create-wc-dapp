@@ -17,5 +17,5 @@
 		"allowJs": true
 	},
 	"include": ["**/*.ts"],
-	"exclude": ["node_modules", "my-wc-dapp*"]
+	"exclude": ["node_modules", "my-wc-dapp*", "core"]
 }
