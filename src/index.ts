@@ -7,7 +7,7 @@ import {
 } from "@/constants/cli";
 import { getAllValues, setValue } from "@/contexts";
 import introduction from "@/functions/introduction";
-import handleProjectCreation from "./functions";
+import handleProjectCreation from "./functions/handleProjectCreation";
 
 export const argParse = () => {
 	// Initialize the command system
@@ -44,18 +44,18 @@ export const cliPrompt = async () => {
 	// Prompt the user for the folder and template if not provided
 	const response = await prompts([
 		{
-			type: "text",
-			name: "folder",
-			message: `${FOLDER_CONSTANTS.description} \n`,
-			initial: `my${APP_CONSTANTS.name.replace("create", "")}`,
-			validate: value => value?.trim().length > 0,
-		},
-		{
 			type: "select",
 			name: "template",
 			message: `${TEMPLATE_CONSTANTS.description} \n`,
 			choices: TEMPLATE_CONSTANTS.options,
 			initial: 0,
+		},
+		{
+			type: "text",
+			name: "folder",
+			message: `${FOLDER_CONSTANTS.description} \n`,
+			initial: `my${APP_CONSTANTS.name.replace("create", "")}`,
+			validate: value => value?.trim().length > 0,
 		},
 	]);
 

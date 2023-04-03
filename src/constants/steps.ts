@@ -1,4 +1,4 @@
-import { blue, bold, cyan, gray, green, magenta } from "picocolors";
+import { blue, bold, gray, green, magenta } from "picocolors";
 import { wcText } from "@/functions/wcText";
 import APP_CONSTANTS from "./app";
 
@@ -12,10 +12,8 @@ const STEPS_BUILDER: StepsProps = (
 ) => `
 	${bold(green("cd ") + magenta(projectPath))}
 	${bold(green(packageManagerSteps[0]))}
-	${bold(`${green("cp")} ${magenta(".env.example")} ${cyan(".env")}\n`)}
-	${gray(`Your .env now contains the following environment variables:
+	${gray(`Your .env file contains the following environment variables:
 \t- NEXT_PUBLIC_PROJECT_ID (placeholder) - You can generate your own ProjectId at https://cloud.walletconnect.com
-\t- NEXT_PUBLIC_RELAY_URL (already set)
 `)}
 	${bold(green(packageManagerSteps[1]))}
 `;

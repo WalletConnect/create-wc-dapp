@@ -14,7 +14,8 @@
 		"dev:watch": "nodemon --watch src --exec \"yarn dev\"",
 		"build": "tsc",
 		"lint": "eslint . --fix",
-		"test": "jest"
+		"test": "jest",
+		"cleanup": "rm -rf my-wc-dapp*/"
 	},
 	"bin": {
 		"create-wc-dapp": "./dist/index.js"

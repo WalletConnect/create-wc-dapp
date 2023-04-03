@@ -18,6 +18,7 @@ import { wcText } from "./wcText";
 
 const cloneAndCopy = () => {
 	const progressBar = getProgressBar() as SingleBar;
+	const baseFolderName = getValue("folder") as string;
 	const repository = getValue("repository") as string;
 	const template = getValue("template") as string;
 	const projectPath = getValue("projectPath") as string;
@@ -30,12 +31,12 @@ const cloneAndCopy = () => {
 		fse.copySync(path.join(folder, `core/${template}`), projectPath);
 		fse.writeFileSync(
 			path.join(projectPath, ".env"),
-			"SKIP_PREFLIGHT_CHECK=true"
+			'SKIP_PREFLIGHT_CHECK=true\nNEXT_PUBLIC_PROJECT_ID=""'
 		);
 		progressBar.stop();
 		console.clear();
 		log(wcText(`\n${READY_TEXT}\n\n`) + STEPS_TEXT);
-		log(STEPS(projectPath, identifyPackageManager()));
+		log(STEPS(baseFolderName, identifyPackageManager()));
 		log(gray(DELETING_TEXT));
 		cleanUp(folder);
 	});

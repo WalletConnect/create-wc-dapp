@@ -16,12 +16,15 @@ const handleProjectCreation = async () => {
 	let i = 1;
 
 	while (dirExists) {
-		const tempPath = await prompts({
+		const response = await prompts({
 			type: "text",
 			name: "folder",
 			message: `${DIR_VALIDATION_ERROR} \n`,
 			initial: folder ? `${folder}-${i}` : `${projectPath}-${i}`,
-		}).then(data => data.folder.trim().replace(/[\W_]+/g, "-"));
+			validate: value => value?.trim().length > 0,
+		});
+
+		const tempPath = response.folder.trim().replace(/[\W_]+/g, "-");
 
 		setValue("projectPath", path.resolve(tempPath));
 

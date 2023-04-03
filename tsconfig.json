@@ -21,7 +21,7 @@
 		}
 	},
 	"include": ["**/*.ts"],
-	"exclude": ["node_modules"],
+	"exclude": ["node_modules", "my-wc-dapp*"],
 	"ts-node": {
 		"require": ["tsconfig-paths/register"]
 	}
