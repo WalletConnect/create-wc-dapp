@@ -12,11 +12,10 @@ const STEPS_BUILDER: StepsProps = (
 ) => `
 	${bold(green("cd ") + magenta(projectPath))}
 	${bold(green(packageManagerSteps[0]))}
-	${gray(`Your .env file contains the following environment variables:
-\t- NEXT_PUBLIC_PROJECT_ID (placeholder) - You can generate your own ProjectId at https://cloud.walletconnect.com
-`)}
 	${bold(green(packageManagerSteps[1]))}
-`;
+	${gray(`\n\tYour .env file contains the following environment variables:
+\t    - NEXT_PUBLIC_PROJECT_ID (placeholder) - You can generate your own ProjectId at https://cloud.walletconnect.com
+`)}`;
 
 const YARN_STEPS = ["yarn", "yarn dev"];
 
@@ -51,7 +50,7 @@ export const PROGRESS_FORMAT = `🛠️  Setting up ${blue(
 
 export const READY_TEXT = "🎉 Your WalletConnect Project is ready";
 
-export const STEPS_TEXT = "👉 To get started, follow these steps:\n";
+export const STEPS_TEXT = "👉 To get started, follow these steps:";
 
 export const POST_CLEANUP_TEXT = "✅ Project cleaned up successfully!";
 
