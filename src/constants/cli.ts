@@ -1,6 +1,6 @@
 type OptionProps = {
 	title: string;
-	value: string;
+	value: string | boolean;
 	description: string;
 };
 
@@ -17,6 +17,64 @@ export const INSTALL: CommandProps = {
 	cmd: "--install",
 	alias: "-i",
 	description: "Install dependencies after creating the project",
+};
+
+export const DEFAULT: CommandProps = {
+	name: "use-default",
+	cmd: "--use-default",
+	alias: "-y",
+	description: "Use default options for all prompts",
+	options: [
+		{
+			title: "template",
+			value: "nextjs",
+			description: "Use Next.js as template",
+		},
+		{
+			title: "packageManager",
+			value: "yarn",
+			description: "Use yarn as package manager",
+		},
+		{
+			title: "installDependencies",
+			value: true,
+			description: "Install dependencies after creating the project",
+		},
+		{
+			title: "folder",
+			value: "my-wc-dapp",
+			description: "Use 'my-wc-dapp' as the project folder",
+		},
+		{
+			title: "envPrefix",
+			value: "NEXT_PUBLIC",
+			description: "Use 'NEXT_PUBLIC' as the environment variable prefix",
+		},
+	],
+};
+
+export const PACKAGE_MANAGER: CommandProps = {
+	name: "packageManager",
+	cmd: "--package-manager",
+	alias: "-p",
+	description: "Select a package manager to use for your WalletConnect dApp",
+	options: [
+		{
+			title: "yarn",
+			value: "yarn",
+			description: "Use yarn as package manager",
+		},
+		{
+			title: "npm",
+			value: "npm",
+			description: "Use npm as package manager",
+		},
+		{
+			title: "pnpm",
+			value: "pnpm",
+			description: "Use pnpm as package manager",
+		},
+	],
 };
 
 export const TEMPLATE: CommandProps = {
