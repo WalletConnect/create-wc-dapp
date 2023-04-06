@@ -16,7 +16,7 @@ type InstallDependenciesProps = Record<"installDependencies", boolean | null>;
 type ProgressBarProps = {
 	progress: SingleBar | null;
 };
-export type CombinedProps = ContextProps & InstallDependenciesProps;
+type CombinedProps = ContextProps & InstallDependenciesProps;
 
 const context: CombinedProps = {
 	template: null,
