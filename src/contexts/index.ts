@@ -6,7 +6,8 @@ type ContextProps = Record<
 	| "repository"
 	| "projectPath"
 	| "baseName"
-	| "packageManager",
+	| "packageManager"
+	| "envPrefix",
 	string | null
 >;
 
@@ -15,7 +16,6 @@ type InstallDependenciesProps = Record<"installDependencies", boolean | null>;
 type ProgressBarProps = {
 	progress: SingleBar | null;
 };
-
 type CombinedProps = ContextProps & InstallDependenciesProps;
 
 const context: CombinedProps = {
@@ -25,6 +25,7 @@ const context: CombinedProps = {
 	projectPath: null,
 	baseName: null,
 	packageManager: null,
+	envPrefix: null,
 	installDependencies: false,
 };
 

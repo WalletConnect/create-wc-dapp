@@ -1,14 +1,19 @@
 #!/usr/bin/env node
 
 import { Command, Option } from "commander";
+import fse from "fs-extra";
+import { red } from "picocolors";
 import prompts from "prompts";
+import path from "node:path";
 import APP_CONSTANTS from "./constants/app";
 import {
 	FOLDER as FOLDER_CONSTANTS,
 	INSTALL as INSTALL_CONSTANTS,
 	TEMPLATE as TEMPLATE_CONSTANTS,
 } from "./constants/cli";
+import { DIR_VALIDATION_ERROR } from "./constants/steps";
 import { getAllValues, setValue } from "./contexts";
+import getEnvPrefix from "./functions/getEnvPrefix";
 import handleProjectCreation from "./functions/handleProjectCreation";
 import introduction from "./functions/introduction";
 
@@ -41,8 +46,24 @@ export const argParse = () => {
 	// Parse the arguments with implicit use of process.argv and node
 	program.parse();
 
+	if (program.args.length !== 0) {
+		const projectPath = program.args[0].trim().replace(/[\W_]+/g, "-");
+		if (fse.existsSync(path.resolve(projectPath))) {
+			const error =
+				DIR_VALIDATION_ERROR.slice(2).charAt(0).toUpperCase() +
+				DIR_VALIDATION_ERROR.slice(2).slice(1);
+			throw new Error(
+				`${red("✖")} ${error.replace(
+					"with this name",
+					`'${projectPath}'`
+				)}`
+			);
+		}
+	}
+
 	// Store the parsed options and arguments
 	setValue("template", program.opts().template);
+	setValue("envPrefix", getEnvPrefix(program.opts().template));
 	setValue("installDependencies", program.opts().install);
 	setValue("folder", program.args[0] || null);
 };
@@ -73,12 +94,20 @@ export const cliPrompt = async () => {
 
 	setValue("template", response.template);
 	setValue("folder", response.folder);
+	setValue("envPrefix", getEnvPrefix(response.template));
 	await handleProjectCreation();
 };
 
 // Run the CLI if this is the main module
 if (require.main === module) {
-	argParse();
-	introduction();
-	cliPrompt();
+	try {
+		argParse();
+		introduction();
+		cliPrompt();
+	} catch (error: unknown) {
+		if (error instanceof Error) {
+			console.error(error.message);
+			process.exit(1);
+		}
+	}
 }

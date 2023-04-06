@@ -15,7 +15,7 @@ interface CommandProps {
 export const INSTALL: CommandProps = {
 	name: "install",
 	cmd: "--install",
-	alias: "-y",
+	alias: "-i",
 	description: "Install dependencies after creating the project",
 };
 
