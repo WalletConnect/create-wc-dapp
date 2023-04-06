@@ -10,7 +10,7 @@ import {
 	DEFAULT as DEFAULT_CONSTANTS,
 	FOLDER as FOLDER_CONSTANTS,
 	INSTALL as INSTALL_CONSTANTS,
-	PACKAGE_MANAGER,
+	PACKAGE_MANAGER as PACKAGE_MANAGER_CONSTANTS,
 	TEMPLATE as TEMPLATE_CONSTANTS,
 } from "./constants/cli";
 import { DIR_VALIDATION_ERROR } from "./constants/steps";
@@ -64,8 +64,8 @@ export const argParse = () => {
 	// Add option to specify package manager
 	program.addOption(
 		new Option(
-			`${PACKAGE_MANAGER.alias}, ${PACKAGE_MANAGER.cmd} <${PACKAGE_MANAGER.name}>`,
-			PACKAGE_MANAGER.description
+			`${PACKAGE_MANAGER_CONSTANTS.alias}, ${PACKAGE_MANAGER_CONSTANTS.cmd} <${PACKAGE_MANAGER_CONSTANTS.name}>`,
+			PACKAGE_MANAGER_CONSTANTS.description
 		).choices(["yarn", "npm", "pnpm"])
 	);
 
@@ -130,8 +130,8 @@ export const cliPrompt = async () => {
 		{
 			type: "select",
 			name: "packageManager",
-			message: `${PACKAGE_MANAGER.description} \n`,
-			choices: PACKAGE_MANAGER.options,
+			message: `${PACKAGE_MANAGER_CONSTANTS.description} \n`,
+			choices: PACKAGE_MANAGER_CONSTANTS.options,
 			initial: 0,
 		},
 	]);
