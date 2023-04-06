@@ -1,6 +1,7 @@
 import { blue, bold, gray, green, magenta } from "picocolors";
 import APP_CONSTANTS from "./app";
 import { getValue } from "../contexts";
+import getEnvPrefix from "../functions/getEnvPrefix";
 import { wcText } from "../functions/wcText";
 
 export type PackageManagerProps = "yarn" | "npm" | "pnpm";
@@ -13,6 +14,7 @@ const STEPS_BUILDER: StepsProps = (
 	projectPath: string,
 	packageManagerSteps: string[]
 ) => {
+	const envPrefix = getEnvPrefix();
 	const installDependencies = getValue("installDependencies") as boolean;
 	return `
 	${bold(green("cd ") + magenta(projectPath))}${
@@ -20,7 +22,7 @@ const STEPS_BUILDER: StepsProps = (
 	}
 	${bold(green(packageManagerSteps[1]))}
 	${gray(`\n\tYour .env file contains the following environment variables:
-\t    - NEXT_PUBLIC_PROJECT_ID (placeholder) - You can generate your own ProjectId at https://cloud.walletconnect.com
+\t    - ${envPrefix}_PROJECT_ID (placeholder) - You can generate your own ProjectId at https://cloud.walletconnect.com
 `)}`;
 };
 
