@@ -6,6 +6,7 @@ import os from "node:os";
 import path from "node:path";
 import process from "process";
 import cleanUp from "./cleanUp";
+import getEnvPrefix from "./getEnvPrefix";
 import { identifyPackageManager } from "./indentifyPackageManager";
 import { log } from "./log";
 import { wcText } from "./wcText";
@@ -40,6 +41,8 @@ const cloneAndCopy = () => {
 	fse.mkdtemp(path.join(os.tmpdir(), "wc-"), async (err, folder) => {
 		if (err) throw err;
 
+		const envPrefix = getEnvPrefix();
+
 		execSync(`git clone --depth 1 ${repository} ${folder}`, {
 			stdio: "pipe",
 		});
@@ -47,7 +50,7 @@ const cloneAndCopy = () => {
 		fse.copySync(path.join(folder, `core/${template}`), projectPath);
 		fse.writeFileSync(
 			path.join(projectPath, ".env"),
-			'SKIP_PREFLIGHT_CHECK=true\nNEXT_PUBLIC_PROJECT_ID=""'
+			`SKIP_PREFLIGHT_CHECK=true\n${envPrefix}_PROJECT_ID=""`
 		);
 		progressBar.stop();
 
