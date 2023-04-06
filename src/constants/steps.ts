@@ -1,7 +1,6 @@
 import { blue, bold, gray, green, magenta } from "picocolors";
 import APP_CONSTANTS from "./app";
 import { getValue } from "../contexts";
-import getEnvPrefix from "../functions/getEnvPrefix";
 import { wcText } from "../functions/wcText";
 
 export type PackageManagerProps = "yarn" | "npm" | "pnpm";
@@ -14,7 +13,7 @@ const STEPS_BUILDER: StepsProps = (
 	projectPath: string,
 	packageManagerSteps: string[]
 ) => {
-	const envPrefix = getEnvPrefix();
+	const envPrefix = getValue("envPrefix") as string;
 	const installDependencies = getValue("installDependencies") as boolean;
 	return `
 	${bold(green("cd ") + magenta(projectPath))}${

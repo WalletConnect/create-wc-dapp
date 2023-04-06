@@ -1,5 +1,4 @@
 import { TEMPLATE } from "../constants/cli";
-import { getValue } from "../contexts";
 
 const templates = TEMPLATE?.options?.map(item => item.value) as [
 	"nextjs",
@@ -12,10 +11,9 @@ const EnvFilePrefix = {
 	vanilla: "VITE",
 };
 
-type TemplateProps = (typeof templates)[number];
+export type TemplateProps = (typeof templates)[number];
 
-const getEnvPrefix = (): string => {
-	const template: TemplateProps = getValue("template") as TemplateProps;
+const getEnvPrefix = (template: TemplateProps): string => {
 	return EnvFilePrefix[template];
 };
 
