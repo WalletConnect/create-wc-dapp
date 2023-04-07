@@ -6,18 +6,18 @@ import os from "node:os";
 import path from "node:path";
 import process from "process";
 import cleanUp from "./cleanUp";
-import { identifyPackageManager } from "./indentifyPackageManager";
 import { log } from "./log";
 import { wcText } from "./wcText";
 import {
 	DELETING_TEXT,
+	MAP_PACKAGE_MANAGER_LOCK,
 	PackageManagerProps,
 	READY_TEXT,
 	STEPS,
 	STEPS_FOR_PACKAGE_MANAGER,
 	STEPS_TEXT,
 } from "../constants/steps";
-import { getProgressBar, getValue, setValue } from "../contexts";
+import { getProgressBar, getValue } from "../contexts";
 
 const postInstall = (folder: string) => {
 	const packageManager = getValue("packageManager") as PackageManagerProps;
@@ -53,10 +53,25 @@ const cloneAndCopy = () => {
 		);
 		progressBar.stop();
 
-		const packageManager: PackageManagerProps = setValue(
-			"packageManager",
-			identifyPackageManager() || "yarn"
+		const packageManager: PackageManagerProps = getValue(
+			"packageManager"
 		) as PackageManagerProps;
+
+		// Remove other lock files except the one for the package manager selected if they exist
+		const lockFiles = Object.values(MAP_PACKAGE_MANAGER_LOCK).map(
+			lockFile => path.join(projectPath, lockFile)
+		);
+
+		const lockFileToKeep = path.join(
+			projectPath,
+			MAP_PACKAGE_MANAGER_LOCK[packageManager]
+		);
+
+		lockFiles.forEach(lockFile => {
+			if (lockFile !== lockFileToKeep && fse.existsSync(lockFile)) {
+				fse.removeSync(lockFile);
+			}
+		});
 
 		if (installDependencies) {
 			console.clear();

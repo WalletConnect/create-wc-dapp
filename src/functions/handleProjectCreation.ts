@@ -40,7 +40,7 @@ const handleProjectCreation = async () => {
 		type: "confirm",
 		name: "installDependencies",
 		message: `Would you like to install the dependencies?`,
-		initial: false,
+		initial: true,
 	});
 
 	setValue("installDependencies", response.installDependencies);

@@ -31,6 +31,12 @@ export const STEPS_FOR_PACKAGE_MANAGER = {
 	pnpm: ["pnpm install", "pnpm run dev"],
 };
 
+export const MAP_PACKAGE_MANAGER_LOCK = {
+	yarn: "yarn.lock",
+	npm: "package-lock.json",
+	pnpm: "pnpm-lock.yaml",
+};
+
 export const STEPS = (projectPath: string, packageManager = "yarn") => {
 	switch (packageManager) {
 		case "yarn":
