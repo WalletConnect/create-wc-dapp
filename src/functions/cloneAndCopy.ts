@@ -32,6 +32,7 @@ const postInstall = (folder: string) => {
 const cloneAndCopy = () => {
 	const progressBar = getProgressBar() as SingleBar;
 
+	const projectID = getValue("projectID") as string;
 	const repository = getValue("repository") as string;
 	const template = getValue("template") as string;
 	const projectPath = getValue("projectPath") as string;
@@ -49,7 +50,7 @@ const cloneAndCopy = () => {
 		fse.copySync(path.join(folder, `core/${template}`), projectPath);
 		fse.writeFileSync(
 			path.join(projectPath, ".env"),
-			`SKIP_PREFLIGHT_CHECK=true\n#Generate your WalletConnect Project ID from https://cloud.walletconnect.com\n${envPrefix}_PROJECT_ID=""`
+			`SKIP_PREFLIGHT_CHECK=true\n${envPrefix}_PROJECT_ID="${projectID}"`
 		);
 		progressBar.stop();
 

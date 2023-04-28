@@ -10,6 +10,7 @@ interface CommandProps {
 	alias?: string;
 	description: string;
 	options?: OptionProps[];
+	url?: string;
 }
 
 export const INSTALL: CommandProps = {
@@ -17,6 +18,14 @@ export const INSTALL: CommandProps = {
 	cmd: "--install",
 	alias: "-i",
 	description: "Install dependencies after creating the project",
+};
+
+export const PROJECTID: CommandProps = {
+	name: "projectId",
+	cmd: "--project-id",
+	alias: "-id",
+	description: `Enter your project ID from https://cloud.walletconnect.com`,
+	url: "https://cloud.walletconnect.com",
 };
 
 export const DEFAULT: CommandProps = {
