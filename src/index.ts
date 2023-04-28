@@ -11,6 +11,7 @@ import {
 	FOLDER as FOLDER_CONSTANTS,
 	INSTALL as INSTALL_CONSTANTS,
 	PACKAGE_MANAGER as PACKAGE_MANAGER_CONSTANTS,
+	PROJECTID as PROJECTID_CONSTANTS,
 	TEMPLATE as TEMPLATE_CONSTANTS,
 } from "./constants/cli";
 import { DIR_VALIDATION_ERROR } from "./constants/steps";
@@ -53,6 +54,14 @@ export const argParse = () => {
 		)
 	);
 
+	// Add option to enter project ID
+	program.addOption(
+		new Option(
+			`${PROJECTID_CONSTANTS.alias}, ${PROJECTID_CONSTANTS.cmd} <${PROJECTID_CONSTANTS.name}>`,
+			PROJECTID_CONSTANTS.description
+		)
+	);
+
 	// Add the template option
 	program.addOption(
 		new Option(
@@ -86,6 +95,13 @@ export const argParse = () => {
 
 	// Store the parsed options and arguments
 
+	setValue("template", program.opts().template);
+	setValue("envPrefix", getEnvPrefix(program.opts().template));
+	setValue("installDependencies", program.opts().install);
+	setValue("folder", program.args[0] || null);
+	setValue("packageManager", program.opts().packageManager);
+	setValue("projectID", program.opts().projectId);
+
 	if (program.opts().useDefault) {
 		console.log(
 			wcText("🧱 use-default flag found! Using default values...")
@@ -96,23 +112,51 @@ export const argParse = () => {
 		)?.value as string;
 
 		handleDirExistsError(defaultFolder);
-	} else {
-		setValue("template", program.opts().template);
-		setValue("envPrefix", getEnvPrefix(program.opts().template));
-		setValue("installDependencies", program.opts().install);
-		setValue("folder", program.args[0] || null);
-		setValue("packageManager", program.opts().packageManager);
+
+		DEFAULT_CONSTANTS.options?.map(item => {
+			setValue(
+				item.title as
+					| "folder"
+					| "template"
+					| "repository"
+					| "projectPath"
+					| "baseName"
+					| "packageManager"
+					| "envPrefix"
+					| "installDependencies",
+				item.value
+			);
+		});
 	}
 };
 
 export const cliPrompt = async () => {
 	const contexts = getAllValues();
 
+	// Get all contexts without null values
+	const filteredContexts = Object.fromEntries(
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		Object.entries(contexts).filter(([_, v]) => v !== null)
+	);
+
 	// Override the default prompt
-	prompts.override(contexts);
+	prompts.override(filteredContexts);
+
+	if (!contexts.projectID) {
+		const open = (await import("open")).default;
+
+		if (PROJECTID_CONSTANTS.url) {
+			open(PROJECTID_CONSTANTS.url);
+		}
+	}
 
 	// Prompt the user for the folder and template if not provided
 	const response = await prompts([
+		{
+			type: "text",
+			name: "projectID",
+			message: `${PROJECTID_CONSTANTS.description} \n`,
+		},
 		{
 			type: "select",
 			name: "template",
@@ -140,6 +184,7 @@ export const cliPrompt = async () => {
 	setValue("packageManager", response.packageManager);
 	setValue("folder", response.folder);
 	setValue("envPrefix", getEnvPrefix(response.template));
+	setValue("projectID", response.projectID);
 	await handleProjectCreation();
 };
 
