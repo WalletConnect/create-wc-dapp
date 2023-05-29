@@ -11,7 +11,7 @@ const mapTemplateToRepository = async () => {
 	const templateMap: TemplateMapProps = {
 		nextjs: "next-starter-template",
 		react: "react-starter-template",
-		vite: "vanilla-starter-template",
+		vanilla: "vanilla-starter-template",
 	};
 
 	setValue("template", templateMap[template]);
