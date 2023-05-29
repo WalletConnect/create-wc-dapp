@@ -149,7 +149,7 @@ export default function App() {
 							/>
 						</svg>
 						<a
-							href="https://docs.walletconnect.com/2.0/web3modal/react/installation?utm_source=next-starter-template&utm_medium=github&utm_campaign=next-starter-template"
+							href="https://docs.walletconnect.com/2.0/web3modal/react/installation?utm_source=react-starter-template&utm_medium=github&utm_campaign=react-starter-template"
 							target="_blank"
 						>
 							Check out the full documentation here
