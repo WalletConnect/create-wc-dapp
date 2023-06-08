@@ -6,7 +6,7 @@
 WalletConnect integrated dApp. With just one command, you can bootstrap your
 project and get started with WalletConnect v2 and Web3Modal 📲
 
-[![asciicast](https://asciinema.org/a/v26NPtirFdqbw0RtJNYuyUQHx.svg)](https://asciinema.org/a/v26NPtirFdqbw0RtJNYuyUQHx)
+[![asciicast](/static/demo.gif)](https://asciinema.org/a/v26NPtirFdqbw0RtJNYuyUQHx)
 
 ## Features
 
