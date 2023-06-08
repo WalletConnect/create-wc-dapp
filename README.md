@@ -25,7 +25,7 @@ Before using `create-wc-dapp`, make sure you have the following:
 
 ## Usage
 
-To create a new WalletConnect integrated dApp, run the following command:
+To create a new WalletConnect integrated dapp, run the following command:
 
 ```
 npx create-wc-dapp [options]
@@ -40,7 +40,7 @@ npx create-wc-dapp [options]
 -   `-t, --template <template>`: Select a template to use for your WalletConnect
     dApp. Available choices: "nextjs", "react", "vite".
 -   `-p, --package-manager <packageManager>`: Select a package manager to use
-    for your WalletConnect dApp. Available choices: "yarn", "npm", "pnpm".
+    for your WalletConnect dapp. Available choices: "yarn", "npm", "pnpm".
 -   `-y, --use-default`: Use default options for all prompts.
 -   `-h, --help`: Display the help screen for the command.
 
@@ -49,7 +49,7 @@ you can also use the interactive prompts to select your options.
 
 ## Running Locally
 
-To run the cli locally, clone the repository and install the dependencies:
+To run the CLI locally, clone the repository and install the dependencies:
 
 ```bash
 git clone https://github.com/WalletConnect/create-wc-dapp.git
