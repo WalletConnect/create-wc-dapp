@@ -87,7 +87,7 @@ export default function App() {
 			<main className={styles.main}>
 				<div className={styles.wrapper}>
 					<div className={styles.container}>
-						<h1>Next.js Starter Template</h1>
+						<h1>React Starter Template</h1>
 						<div className={styles.content}>
 							<ul>
 								<li>
