@@ -1,21 +1,21 @@
 {
-  "name": "vanilla-starter-template",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
-  "devDependencies": {
-    "typescript": "^5.0.2",
-    "vite": "^4.3.2"
-  },
-  "dependencies": {
-    "@wagmi/core": "^1.0.8",
-    "@web3modal/ethereum": "^2.4.1",
-    "@web3modal/html": "^2.4.1",
-    "viem": "^0.3.37"
-  }
+	"name": "vanilla-starter-template",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"preview": "vite preview"
+	},
+	"devDependencies": {
+		"typescript": "^5.0.2",
+		"vite": "^4.3.2"
+	},
+	"dependencies": {
+		"@wagmi/core": "^1.0.8",
+		"@web3modal/ethereum": "^2.4.1",
+		"@web3modal/html": "^2.4.1",
+		"viem": "^0.3.37"
+	}
 }
