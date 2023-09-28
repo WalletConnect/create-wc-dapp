@@ -1,13 +1,9 @@
 import "@/styles/globals.css";
-import {
-	EthereumClient,
-	w3mConnectors,
-	w3mProvider,
-} from "@web3modal/ethereum";
-import { Web3Modal } from "@web3modal/react";
+import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
+
+import { WagmiConfig } from "wagmi";
 import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
-import { WagmiConfig, configureChains, createClient } from "wagmi";
 import {
 	arbitrum,
 	avalanche,
@@ -34,14 +30,16 @@ const chains = [
 
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "";
 
-const { provider } = configureChains(chains, [w3mProvider({ projectId })]);
-const wagmiClient = createClient({
-	autoConnect: true,
-	connectors: w3mConnectors({ version: 2, chains, projectId }),
-	provider,
-});
+const metadata = {
+	name: "Next Starter Template",
+	description: "A Next.js starter template with Web3Modal v3 + Wagmi",
+	url: "https://web3modal.com",
+	icons: ["https://avatars.githubusercontent.com/u/37784886"],
+};
 
-const ethereumClient = new EthereumClient(wagmiClient, chains);
+const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
+
+createWeb3Modal({ wagmiConfig, projectId, chains });
 
 export default function App({ Component, pageProps }: AppProps) {
 	const [ready, setReady] = useState(false);
@@ -52,12 +50,10 @@ export default function App({ Component, pageProps }: AppProps) {
 	return (
 		<>
 			{ready ? (
-				<WagmiConfig client={wagmiClient}>
+				<WagmiConfig config={wagmiConfig}>
 					<Component {...pageProps} />
 				</WagmiConfig>
 			) : null}
-
-			<Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
 		</>
 	);
 }

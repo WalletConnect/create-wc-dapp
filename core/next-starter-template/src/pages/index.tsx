@@ -1,36 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "@/styles/Home.module.css";
-import { Web3Button, Web3NetworkSwitch } from "@web3modal/react";
 import { useState } from "react";
-
-const WCLogo = () => (
-	<svg
-		fill="none"
-		width="24"
-		viewBox="0 0 480 332"
-		xmlns="http://www.w3.org/2000/svg"
-	>
-		<path
-			d="m126.613 93.9842c62.622-61.3123 164.152-61.3123 226.775 0l7.536 7.3788c3.131 3.066 3.131 8.036 0 11.102l-25.781 25.242c-1.566 1.533-4.104 1.533-5.67 0l-10.371-10.154c-43.687-42.7734-114.517-42.7734-158.204 0l-11.107 10.874c-1.565 1.533-4.103 1.533-5.669 0l-25.781-25.242c-3.132-3.066-3.132-8.036 0-11.102zm280.093 52.2038 22.946 22.465c3.131 3.066 3.131 8.036 0 11.102l-103.463 101.301c-3.131 3.065-8.208 3.065-11.339 0l-73.432-71.896c-.783-.767-2.052-.767-2.835 0l-73.43 71.896c-3.131 3.065-8.208 3.065-11.339 0l-103.4657-101.302c-3.1311-3.066-3.1311-8.036 0-11.102l22.9456-22.466c3.1311-3.065 8.2077-3.065 11.3388 0l73.4333 71.897c.782.767 2.051.767 2.834 0l73.429-71.897c3.131-3.065 8.208-3.065 11.339 0l73.433 71.897c.783.767 2.052.767 2.835 0l73.431-71.895c3.132-3.066 8.208-3.066 11.339 0z"
-			fill="currentColor"
-		/>
-	</svg>
-);
-
-const ETHLogo = () => (
-	<svg
-		width="16"
-		height="16"
-		viewBox="0 0 24 24"
-		xmlns="http://www.w3.org/2000/svg"
-	>
-		<path
-			fill="currentColor"
-			d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.365 4.354 7.365-4.35L12.056 0z"
-		/>
-	</svg>
-);
 
 export default function Home() {
 	const [isNetworkSwitchHighlighted, setIsNetworkSwitchHighlighted] =
@@ -83,7 +54,7 @@ export default function Home() {
 									: ``
 							}`}
 						>
-							<Web3NetworkSwitch />
+							<w3m-network-button />
 						</div>
 						<div
 							onClick={closeAll}
@@ -93,7 +64,7 @@ export default function Home() {
 									: ``
 							}`}
 						>
-							<Web3Button />
+							<w3m-button />
 						</div>
 					</div>
 				</div>
@@ -121,11 +92,10 @@ export default function Home() {
 										}}
 										className={styles.button}
 									>
-										<WCLogo />
 										Connect Wallet
 									</span>{" "}
-									on the top right to connect to a
-									WalletConnect v2.0 compatible wallet.
+									to connect to a WalletConnect v2.0
+									compatible wallet.
 								</li>
 								<li>
 									Click{" "}
@@ -138,8 +108,7 @@ export default function Home() {
 										}}
 										className={styles.button}
 									>
-										<ETHLogo />
-										Ethereum
+										Select Network
 									</span>{" "}
 									to change networks.
 								</li>
@@ -163,7 +132,7 @@ export default function Home() {
 							/>
 						</svg>
 						<a
-							href="https://docs.walletconnect.com/2.0/web3modal/react/installation?utm_source=next-starter-template&utm_medium=github&utm_campaign=next-starter-template"
+							href="https://docs.walletconnect.com/web3modal/react/about?utm_source=next-starter-template&utm_medium=github&utm_campaign=next-starter-template"
 							target="_blank"
 						>
 							Check out the full documentation here

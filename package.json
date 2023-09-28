@@ -1,6 +1,6 @@
 {
 	"name": "create-wc-dapp",
-	"version": "1.0.4",
+	"version": "1.1.0",
 	"description": "Bootstrap a WalletConnect integrated dapp with with one command",
 	"keywords": [
 		"create-wc-dapp",

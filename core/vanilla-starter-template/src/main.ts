@@ -1,25 +1,41 @@
 import "./index.css";
 import "./home.css";
+import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi";
 import {
-	EthereumClient,
-	w3mConnectors,
-	w3mProvider,
-} from "@web3modal/ethereum";
-import { Web3Modal } from "@web3modal/html";
-import { configureChains, createConfig } from "@wagmi/core";
-import { arbitrum, mainnet, polygon } from "@wagmi/core/chains";
+	arbitrum,
+	avalanche,
+	bsc,
+	fantom,
+	gnosis,
+	mainnet,
+	optimism,
+	polygon,
+} from "@wagmi/core/chains";
 
-const chains = [arbitrum, mainnet, polygon];
+const chains = [
+	mainnet,
+	polygon,
+	avalanche,
+	arbitrum,
+	bsc,
+	optimism,
+	gnosis,
+	fantom,
+];
 const projectId = import.meta.env.VITE_PROJECT_ID || "";
 
-const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
-const wagmiConfig = createConfig({
-	autoConnect: true,
-	connectors: w3mConnectors({ projectId, version: 1, chains }),
-	publicClient,
-});
-const ethereumClient = new EthereumClient(wagmiConfig, chains);
-export const web3modal = new Web3Modal({ projectId }, ethereumClient);
+const metadata = {
+	name: "Vanilla Starter Template",
+	description: "A Vanilla starter template with Web3Modal v3 + Wagmi",
+	url: "https://web3modal.com",
+	icons: ["https://avatars.githubusercontent.com/u/37784886"],
+};
+
+const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
+
+createWeb3Modal({ wagmiConfig, projectId, chains });
+
+// UI Toggle Code
 
 const networkSwitchContainer = document.getElementById(
 	"network-switch-container"

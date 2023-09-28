@@ -2,13 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./styles/index.css";
-import {
-	EthereumClient,
-	w3mConnectors,
-	w3mProvider,
-} from "@web3modal/ethereum";
-import { Web3Modal } from "@web3modal/react";
-import { WagmiConfig, configureChains, createClient } from "wagmi";
+import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
+
+import { WagmiConfig } from "wagmi";
 import {
 	arbitrum,
 	avalanche,
@@ -35,20 +31,21 @@ const chains = [
 
 const projectId = import.meta.env.VITE_PROJECT_ID || "";
 
-const { provider } = configureChains(chains, [w3mProvider({ projectId })]);
-const wagmiClient = createClient({
-	autoConnect: true,
-	connectors: w3mConnectors({ version: 2, chains, projectId }),
-	provider,
-});
+const metadata = {
+	name: "React Starter Template",
+	description: "A React starter template with Web3Modal v3 + Wagmi",
+	url: "https://web3modal.com",
+	icons: ["https://avatars.githubusercontent.com/u/37784886"],
+};
 
-const ethereumClient = new EthereumClient(wagmiClient, chains);
+const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
+
+createWeb3Modal({ wagmiConfig, projectId, chains });
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<React.StrictMode>
-		<WagmiConfig client={wagmiClient}>
+		<WagmiConfig config={wagmiConfig}>
 			<App />
 		</WagmiConfig>
-		<Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
 	</React.StrictMode>
 );
