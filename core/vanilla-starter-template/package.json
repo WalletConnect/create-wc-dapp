@@ -8,7 +8,7 @@
 		"preview": "vite preview"
 	},
 	"devDependencies": {
-		"typescript": "^5.0.2",
+		"typescript": "^5.0.4",
 		"vite": "^4.3.2"
 	},
 	"dependencies": {
