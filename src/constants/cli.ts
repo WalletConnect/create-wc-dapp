@@ -25,7 +25,7 @@ export const PROJECTID: CommandProps = {
 	cmd: "--project-id",
 	alias: "-id",
 	description: `Enter your project ID from https://cloud.walletconnect.com`,
-	url: "https://cloud.walletconnect.com",
+	url: "https://cloud.walletconnect.com?utm_source=create-wc-dapp&utm_medium=cli&utm_campaign=walletconnect-cli",
 };
 
 export const DEFAULT: CommandProps = {
