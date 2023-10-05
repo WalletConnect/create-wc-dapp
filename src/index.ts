@@ -107,12 +107,6 @@ export const argParse = () => {
 			wcText("🧱 use-default flag found! Using default values...")
 		);
 
-		const defaultFolder = DEFAULT_CONSTANTS.options?.find(
-			item => item.title === "folder"
-		)?.value as string;
-
-		handleDirExistsError(defaultFolder);
-
 		DEFAULT_CONSTANTS.options?.map(item => {
 			setValue(
 				item.title as

@@ -50,11 +50,6 @@ export const DEFAULT: CommandProps = {
 			description: "Install dependencies after creating the project",
 		},
 		{
-			title: "folder",
-			value: "my-wc-dapp",
-			description: "Use 'my-wc-dapp' as the project folder",
-		},
-		{
 			title: "envPrefix",
 			value: "NEXT_PUBLIC",
 			description: "Use 'NEXT_PUBLIC' as the environment variable prefix",
