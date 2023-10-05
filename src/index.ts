@@ -19,6 +19,7 @@ import { getAllValues, setValue } from "./contexts";
 import getEnvPrefix from "./functions/getEnvPrefix";
 import handleProjectCreation from "./functions/handleProjectCreation";
 import introduction from "./functions/introduction";
+import { log } from "./functions/log";
 import { wcText } from "./functions/wcText";
 
 const handleDirExistsError = (providedPath: string) => {
