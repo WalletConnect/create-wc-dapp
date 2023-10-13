@@ -15,6 +15,14 @@
 			"matchUpdateTypes": ["minor", "patch"],
 			"groupName": "all non-major dependencies",
 			"groupSlug": "all-minor-patch"
+		},
+		{
+			"matchPackagePatterns": ["*"],
+			"schedule": ["every weekend"]
+		},
+		{
+			"matchPackagePatterns": ["@web3modal/*"],
+			"schedule": ["at any time"]
 		}
 	],
 	"platformAutomerge": true
