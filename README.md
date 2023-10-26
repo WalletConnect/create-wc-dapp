@@ -10,9 +10,12 @@ project and get started with WalletConnect v2 and Web3Modal 📲
 
 ## Features
 
-✨ Seamless integration with WalletConnect v2 and Web3Modal.
+✨ Seamless integration with WalletConnect v2 and Web3Modal v3 with
+[EIP-6963](https://eips.ethereum.org/EIPS/eip-6963) support.
 
 📦 Provides three template options: Next.js, React, and Vite.
+
+🧱 Supports multiple library options: Wagmi, Ethers.js.
 
 🔧 Supports multiple package managers: Yarn, npm, and pnpm.
 
@@ -41,6 +44,8 @@ npx create-wc-dapp [options]
     dApp. Available choices: "nextjs", "react", "vite".
 -   `-p, --package-manager <packageManager>`: Select a package manager to use
     for your WalletConnect dapp. Available choices: "yarn", "npm", "pnpm".
+-   `-l, --library <library>`: Select a library to use for your WalletConnect.
+    Available choices: "wagmi", "ethers".
 -   `-y, --use-default`: Use default options for all prompts.
 -   `-h, --help`: Display the help screen for the command.
 
