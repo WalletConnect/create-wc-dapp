@@ -10,6 +10,7 @@ import {
 	DEFAULT as DEFAULT_CONSTANTS,
 	FOLDER as FOLDER_CONSTANTS,
 	INSTALL as INSTALL_CONSTANTS,
+	LIBRARY as LIBRARY_CONSTANTS,
 	PACKAGE_MANAGER as PACKAGE_MANAGER_CONSTANTS,
 	PROJECTID as PROJECTID_CONSTANTS,
 	TEMPLATE as TEMPLATE_CONSTANTS,
@@ -19,7 +20,6 @@ import { getAllValues, setValue } from "./contexts";
 import getEnvPrefix from "./functions/getEnvPrefix";
 import handleProjectCreation from "./functions/handleProjectCreation";
 import introduction from "./functions/introduction";
-import { log } from "./functions/log";
 import { wcText } from "./functions/wcText";
 
 const handleDirExistsError = (providedPath: string) => {
@@ -71,6 +71,14 @@ export const argParse = () => {
 		).choices(["nextjs", "react", "vite"])
 	);
 
+	// Add the library option
+	program.addOption(
+		new Option(
+			`${LIBRARY_CONSTANTS.alias}, ${LIBRARY_CONSTANTS.cmd} <${LIBRARY_CONSTANTS.name}>`,
+			LIBRARY_CONSTANTS.description
+		).choices(["wagmi", "ethers"])
+	);
+
 	// Add option to specify package manager
 	program.addOption(
 		new Option(
@@ -100,6 +108,7 @@ export const argParse = () => {
 	setValue("envPrefix", getEnvPrefix(program.opts().template));
 	setValue("installDependencies", program.opts().install);
 	setValue("folder", program.args[0] || null);
+	setValue("library", program.opts().library);
 	setValue("packageManager", program.opts().packageManager);
 	setValue("projectID", program.opts().projectId);
 
@@ -118,6 +127,7 @@ export const argParse = () => {
 					| "baseName"
 					| "packageManager"
 					| "envPrefix"
+					| "library"
 					| "installDependencies",
 				item.value
 			);
@@ -160,6 +170,13 @@ export const cliPrompt = async () => {
 			initial: 0,
 		},
 		{
+			type: "select",
+			name: "library",
+			message: `${LIBRARY_CONSTANTS.description} \n`,
+			choices: LIBRARY_CONSTANTS.options,
+			initial: 0,
+		},
+		{
 			type: "text",
 			name: "folder",
 			message: `${FOLDER_CONSTANTS.description} \n`,
@@ -179,6 +196,7 @@ export const cliPrompt = async () => {
 	setValue("packageManager", response.packageManager);
 	setValue("folder", response.folder);
 	setValue("envPrefix", getEnvPrefix(response.template));
+	setValue("library", response.library);
 	setValue("projectID", response.projectID);
 	await handleProjectCreation();
 };

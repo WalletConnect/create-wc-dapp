@@ -8,7 +8,8 @@ type ContextProps = Record<
 	| "baseName"
 	| "packageManager"
 	| "projectID"
-	| "envPrefix",
+	| "envPrefix"
+	| "library",
 	string | null
 >;
 
@@ -28,6 +29,7 @@ const context: CombinedProps = {
 	packageManager: null,
 	envPrefix: null,
 	projectID: null,
+	library: null,
 	installDependencies: false,
 };
 
