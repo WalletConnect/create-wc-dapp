@@ -54,6 +54,11 @@ export const DEFAULT: CommandProps = {
 			value: "NEXT_PUBLIC",
 			description: "Use 'NEXT_PUBLIC' as the environment variable prefix",
 		},
+		{
+			title: "library",
+			value: "wagmi",
+			description: "Use wagmi with Web3Modal",
+		},
 	],
 };
 
@@ -101,6 +106,25 @@ export const TEMPLATE: CommandProps = {
 			title: "Vanilla/Vite",
 			value: "vanilla",
 			description: "WalletConnect Vanilla starter template with Vite",
+		},
+	],
+};
+
+export const LIBRARY: CommandProps = {
+	name: "library",
+	cmd: "--library",
+	alias: "-l",
+	description: "Select a library to use with your WalletConnect dApp",
+	options: [
+		{
+			title: "wagmi",
+			value: "wagmi",
+			description: "Use wagmi with Web3Modal",
+		},
+		{
+			title: "ethers",
+			value: "ethers",
+			description: "Use ethers.js with Web3Modal",
 		},
 	],
 };

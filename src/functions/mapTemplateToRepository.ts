@@ -9,9 +9,9 @@ const mapTemplateToRepository = async () => {
 	const template = getValue("template") as string;
 
 	const templateMap: TemplateMapProps = {
-		nextjs: "next-starter-template",
-		react: "react-starter-template",
-		vanilla: "vanilla-starter-template",
+		nextjs: `next-starter-template-${getValue("library")}`,
+		react: `react-starter-template-${getValue("library")}`,
+		vanilla: `vanilla-starter-template-${getValue("library")}`,
 	};
 
 	setValue("template", templateMap[template]);
