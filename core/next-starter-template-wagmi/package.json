@@ -9,7 +9,7 @@
 	},
 	"dependencies": {
 		"@types/node": "18.19.3",
-		"@types/react": "18.2.42",
+		"@types/react": "18.2.43",
 		"@types/react-dom": "18.2.17",
 		"@web3modal/wagmi": "3.4.0",
 		"eslint": "8.55.0",
