@@ -32,7 +32,7 @@ const chains = [
 
 // 1. Get projectID at https://cloud.walletconnect.com
 
-const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "";
+const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "4883433e3fcf673b40125dc0ed3e6104";
 
 const { provider } = configureChains(chains, [w3mProvider({ projectId })]);
 const wagmiClient = createClient({
