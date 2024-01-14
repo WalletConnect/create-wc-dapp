@@ -68,10 +68,10 @@ export default function Home() {
 				<div className={styles.header}>
 					<div className={styles.logo}>
 						<Image
-							src="/logo.svg"
+							src="https://assets.codepen.io/6238486/gscx-logo.png"
 							alt="GSCxBT Logo"
-							height="32"
-							width="203"
+							height="43"
+							width="240"
 						/>
 					</div>
 					<div className={styles.buttons}>
