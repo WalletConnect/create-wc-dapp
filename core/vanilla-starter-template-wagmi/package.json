@@ -14,6 +14,6 @@
 	"dependencies": {
 		"@wagmi/core": "^1.4.2",
 		"@web3modal/wagmi": "3.5.7",
-		"viem": "^1.13.1"
+		"viem": "^2.0.0"
 	}
 }
