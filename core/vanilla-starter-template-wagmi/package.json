@@ -9,7 +9,7 @@
 	},
 	"devDependencies": {
 		"typescript": "^5.0.4",
-		"vite": "^5.0.0"
+		"vite": "^6.0.0"
 	},
 	"dependencies": {
 		"@wagmi/core": "^1.4.2",
