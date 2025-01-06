@@ -13,6 +13,6 @@
 	},
 	"dependencies": {
 		"@web3modal/ethers5": "^3.2.0-alpha.1",
-		"ethers": "5.7.2"
+		"ethers": "6.13.5"
 	}
 }
